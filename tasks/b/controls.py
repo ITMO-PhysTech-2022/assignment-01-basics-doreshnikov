@@ -20,4 +20,17 @@ s = get_string()
 
 print(x, y, s)
 
-# Место для вашего кода
+print(max(x, y) - min(x, y) - 1)
+
+cur = x
+steps = 0
+while cur != 1:
+    cur = cur // 2 if cur % 2 == 0 else cur * 3 + 1
+    steps += 1
+print(steps)
+
+cnt = 0
+for c in s:
+    if c in ('a', 'e', 'i', 'o', 'u', 'y'):
+        cnt += 1
+print(cnt)

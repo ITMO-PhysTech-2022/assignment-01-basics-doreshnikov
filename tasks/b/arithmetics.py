@@ -32,7 +32,7 @@ print(x, y, z)  # вывести три числа через пробел
 
 print(x + y + z)
 print(x * y * z)
-print(int(x * z))
+print(int(x * z) if x * z == int(x * z) else int(x * z) + 1)
 print(x / z)
 print(x // z)
 print(x % y)

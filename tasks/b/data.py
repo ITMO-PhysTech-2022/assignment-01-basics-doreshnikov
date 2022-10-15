@@ -22,10 +22,14 @@
 from test.common.context import get_integer
 
 n = get_integer()
-a = ...
-
-# Место для вашего кода (заполнение массива)
+a = [get_integer() for _ in range(n)]
 
 print(a)
 
-# Место для вашего кода
+print(a[0], a[(n - 1) // 2], a[-1])
+print(min(a), max(a))
+print(sum(a))
+print([x ** 2 for x in a if x % 2 == 0])
+print(a.index(min(a)))
+print(list(reversed(a)))
+print(a[::2])
