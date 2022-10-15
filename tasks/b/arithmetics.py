@@ -30,6 +30,14 @@ z = get_float()
 
 print(x, y, z)  # вывести три числа через пробел
 
-# Место для вашего кода
+print(x + y + z)
+print(x * y * z)
+print(int(x * z))
+print(x / z)
+print(x // z)
+print(x % y)
+print(y ** z)
+print(((x + y) * (x + z) * (y + z)) ** 3)
+print(f'{z:.5f}')
 
-FLOATS = ...
+FLOATS = 6
