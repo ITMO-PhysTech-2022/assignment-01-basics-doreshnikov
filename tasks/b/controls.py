@@ -20,4 +20,31 @@ s = get_string()
 
 print(x, y, s)
 
-# Место для вашего кода
+# [a]
+print(max(x, y) - min(x, y) - 1)
+
+# [b]
+counter = 0
+while x != 1:
+    counter += 1
+    if x % 2 == 0:
+        x //= 2  # то же, что и x = x // 2
+    else:
+        x = x * 3 + 1
+    # альтернативная запись, используя inline-if
+    # здесь x % 2 используется как условие и воспринимается как 1 = True, 0 = False
+    x = x * 3 + 1 if x % 2 else x // 2
+print(counter)
+
+# [c] - первый способ
+result = 0
+for c in ('a', 'e', 'i', 'o', 'u', 'y'):
+    result += s.count(c)
+print(result)
+
+# [c] - второй способ
+result = 0
+for c in s:
+    if c in {'a', 'e', 'i', 'o', 'u', 'y'}:
+        result += 1
+print(result)

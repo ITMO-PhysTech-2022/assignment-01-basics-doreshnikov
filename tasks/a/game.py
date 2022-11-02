@@ -21,6 +21,7 @@
 """
 
 from typing import Callable
+from random import choices, randint
 
 
 def create_secret(n: int) -> str:
@@ -28,7 +29,16 @@ def create_secret(n: int) -> str:
     Функция принимает длину загадываемого числа
     и возвращает случайную строку из цифр указанной длины
     """
-    return ...
+
+    # решение с использованием random.choices - выбор случайного элемента
+    d = [str(i) for i in range(10)]  # ['0', '1', ..., '9']
+    s = ''.join(choices(d, k=n))  # выбрать n случайных цифр и склеить в одну строку
+
+    # более простое решение - n раз добавляем к пустой строке случайную цифру
+    s = ''
+    for i in range(n):
+        s += str(randint(0, 9))
+    return s
 
 
 def score(secret: str, guess: str) -> tuple[int, int]:
@@ -40,8 +50,34 @@ def score(secret: str, guess: str) -> tuple[int, int]:
         > для нахождения числа общих позиций может быть полезно
           воспользоваться структурой данных "множество" (set)
     """
-    bulls, cows = ..., ...
-    return bulls, cows
+
+    # базовое решение для подсчета быков
+    bulls = 0
+    for i in range(len(secret)):
+        if secret[i] == guess[i]:
+            bulls += 1
+
+    # более компактное решение для подсчета быков
+    bulls = 0
+    for c1, c2 in zip(secret, guess):
+        bulls += c1 == c2
+
+    # неадекватное решение для подсчета быков
+    bulls = len(set(enumerate(secret)) & set(enumerate(guess)))
+
+    # дальше считаем быков и коров вместе
+    # каждая цифра является быком или коровой min(count1, count2) раз
+    # где count1 и count2 - количество ее вхождений в secret и guess
+    cows_plus_bulls = 0
+    for c in range(10):
+        cows_plus_bulls += min(secret.count(str(c)), guess.count(str(c)))
+
+    # то же самое, но записанное через list comprehension
+    cows_plus_bulls = sum([min(secret.count(str(c)), guess.count(str(c)))
+                           for c in range(10)])
+
+    # коровы = (коровы + быки) - быки
+    return bulls, cows_plus_bulls - bulls
 
 
 def validate(n: int, guess: str) -> bool:
@@ -49,7 +85,20 @@ def validate(n: int, guess: str) -> bool:
     Функция принимает параметр игры - длину загаданной строки, и догадку игрока
     и возвращает, правда ли игрок ввел корректную догадку (строку длины n из цифр)
     """
-    ...
+
+    # проверка длины
+    if len(guess) != n: return False
+
+    # проверка, что каждый символ - цифра
+    digits = [str(i) for i in range(10)]
+    for c in guess:
+        if c not in digits:
+            # если хотя бы один символ - не цифра, сразу возвращаем False
+            return False
+    return True
+
+    # альтернативный способ проверить, что каждый символ - цифра
+    return guess.isnumeric()
 
 
 def computer_player(n: int) -> Callable:
@@ -58,8 +107,17 @@ def computer_player(n: int) -> Callable:
     и возвращает ФУНКЦИЮ, генерирующую догадки
     """
 
+    # будем по очереди называть все догадки от 000..00 до 999..99
+    last_guess = -1
+    # форматная строка, используемая для дополнения числа нулями до длины n
+    formatter = f'{{:0>{n}}}'
+
     def guess():
-        pass
+        nonlocal last_guess
+        last_guess += 1
+        result = formatter.format(last_guess)
+        print(f'My guess is \'{result}\'')
+        return result
 
     return guess
 
@@ -95,4 +153,4 @@ def play(n: int, player: Callable):
 
 if __name__ == '__main__':
     n = 4
-    play(n, real_player(n))
+    play(n, computer_player(n))

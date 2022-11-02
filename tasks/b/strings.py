@@ -13,7 +13,26 @@
 - [g] первую позицию вхождения первой строки во вторую (или -1, если их нет)
 """
 
-s1 = ...
-s2 = ...
+s1 = input()
+s2 = input()
 
-# Место для вашего кода
+# [a]
+print(len(s1) * len(s2))
+
+# [b], [c]
+print(s1, s2)
+print(s1, s2, sep=',\t')  # separator = разделитель
+
+# [d]
+print(f"Hello, {s1}! Just wanted to say: '{s2}'")
+
+# [e], [f]
+w1 = s1.split()
+w2 = s2.split()
+print(w1[0], w2[0])
+print(len(w1))
+
+# [g]
+print(s2.find(s1))
+# <-  9  ->abcd
+# akhdnais*abcd*aksue, позиция вхождения = 9

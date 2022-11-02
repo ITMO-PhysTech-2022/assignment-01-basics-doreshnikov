@@ -30,6 +30,33 @@ z = get_float()
 
 print(x, y, z)  # вывести три числа через пробел
 
-# Место для вашего кода
+# [a], [b]
+print(x + y + z)
+print(x * y * z)
 
-FLOATS = ...
+# [c] - базовый способ
+if x * z == int(x * z):
+    print(int(x * z))
+else:
+    print(int(x * z) + 1)
+
+# [c] - компактный способ
+# конструкция {value1} if {condition} else {value2}
+print(int(x * z) if x * z == int(x * z) else int(x * z) + 1)
+
+# [d], [e], [f], [g]
+print(x / z)
+print(x // z)
+print(x % y)
+print(y ** z)
+
+# [h]
+# здесь могли быть проблемы с точностью, если перемножать в другом порядке
+print(((x + y) * (x + z) * (y + z)) ** 3)
+
+# [i]
+# форматная строка - .5f означает float с 5 знаками после точки
+print(f'{z:.5f}')
+
+# float'ы получаются в пунктах [a], [b], [d], [e], [g], [h]
+FLOATS = 6

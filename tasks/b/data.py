@@ -21,11 +21,41 @@
 
 from test.common.context import get_integer
 
+# заполнение массива
 n = get_integer()
-a = ...
+a = []
+for i in range(n):
+    a.append(get_integer())
 
-# Место для вашего кода (заполнение массива)
+# альтернативный способ создания массива, равнозначен первому
+# list comprehension - конструкция вида [{value} for ... in ...]
+a = [get_integer() for i in range(n)]
 
 print(a)
 
-# Место для вашего кода
+# [a]
+print(a[0], a[(n - 1) // 2], a[-1])
+# 0 1 *2* 3 4 5: медианный элемент при n = 6 равен 2
+# 0 1 2 *3* 4 5 6: медианный элемент при n = 7 равен 3
+
+# [b], [c]
+print(min(a), max(a))
+print(sum(a))
+
+# [d] - базовый способ
+b = []
+for item in a:
+    if item % 2 == 0:
+        b.append(item ** 2)
+
+# [d] - компактный способ (полностью равносилен предыдущему)
+b = [item ** 2 for item in a if item % 2 == 0]
+
+print(b)
+
+# [e]
+print(a.index(min(a)))
+
+# [f], [g]
+print(a[::-1])  # или print(list(reversed(a)))
+print(a[::2])
