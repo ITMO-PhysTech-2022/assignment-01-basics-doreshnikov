@@ -12,6 +12,14 @@ def sieve(n: int) -> list:
     Функция принимает число n - верхнюю границу поиска,
     и возвращает массив простых чисел от 1 до n
     """
-    primes = []
-    ...
+    primes = []  # массив простых чисел
+    for i in range(2, n + 1):
+        ok = True  # является ли i простым
+        for p in primes:
+            if i % p == 0:
+                # если число делится на какое-то из известных простых, то само не простое
+                ok = False
+                break
+        if ok:
+            primes.append(i)
     return primes
